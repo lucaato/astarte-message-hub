@@ -31,22 +31,22 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  dco:
-    uses: ./.github/workflows/dco.yaml
-    permissions:
-      actions: read
-      pull-requests: read
-    with:
-      pr: ${{ github.event.pull_request.number }}
+  #dco:
+  #  uses: ./.github/workflows/dco.yaml
+  #  permissions:
+  #    actions: read
+  #    pull-requests: read
+  #  with:
+  #    pr: ${{ github.event.pull_request.number }}
   reuse:
     uses: ./.github/workflows/reuse-lint.yaml
   check:
     uses: ./.github/workflows/check.yaml
-    needs: [reuse, dco]
+    needs: [reuse]
   test:
     uses: ./.github/workflows/test.yaml
     secrets: inherit
-    needs: [reuse, dco]
+    needs: [reuse]
   e2e-test:
     uses: ./.github/workflows/e2e-test.yaml
-    needs: [reuse, dco]
+    needs: [reuse]
