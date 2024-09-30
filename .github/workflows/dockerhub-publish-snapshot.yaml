@@ -48,6 +48,7 @@ jobs:
     name: Push Docker images to Docker Hub
     runs-on: ubuntu-22.04
     permissions:
+      actions: write
       packages: write
       contents: read
       attestations: write
@@ -69,7 +70,7 @@ jobs:
       - name: Skip execution if no changes to image files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: steps.changes.outputs.tf == 'true'
+        if: steps.changes.outputs.tf != 'true'
         run: |
           gh run cancel ${{ github.run_id }}
           gh run watch ${{ github.run_id }}

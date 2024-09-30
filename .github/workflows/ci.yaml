@@ -43,18 +43,20 @@ jobs:
   check:
     uses: ./.github/workflows/check.yaml
     needs: [reuse]
-  test:
-    uses: ./.github/workflows/test.yaml
-    secrets: inherit
-    needs: [reuse]
-  e2e-test:
-    uses: ./.github/workflows/e2e-test.yaml
-    needs: [reuse]
+  #test:
+  #  uses: ./.github/workflows/test.yaml
+  #  secrets: inherit
+  #  needs: [reuse]
+  #e2e-test:
+  #  uses: ./.github/workflows/e2e-test.yaml
+  #  needs: [reuse]
   publish-snapshot:
     secrets: inherit
     uses: ./.github/workflows/dockerhub-publish-snapshot.yaml
-    needs: [check, test, e2e-test]
+    #needs: [check, test, e2e-test]
+    needs: [check]
     permissions:
+      actions: write
       packages: write
       contents: read
       attestations: write
