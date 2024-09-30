@@ -50,3 +50,17 @@ jobs:
   e2e-test:
     uses: ./.github/workflows/e2e-test.yaml
     needs: [reuse]
+  image-changes:
+    uses: dorny/paths-filter@v3
+    id: changes
+    needs: [check, test, e2e-test]
+    with:
+      filters: |
+        tf:
+          - 'src/**'
+          - '.github/workflows/dockerhub-publish-snapshot.yaml'
+          - 'Dockerfile'
+  publish-snapshot:
+    secrets: inherit
+    uses: ./.github/workflows/dockerhub-publish-snapshot.yml
+    needs: [image-changes]

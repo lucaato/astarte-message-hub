@@ -23,14 +23,21 @@
 name: Publish snapshot Docker images
 
 on:
-  push:
-    paths:
-    - 'src/**'
-    - '.github/workflows/dockerhub-publish-snapshot.yaml'
-    - 'Dockerfile'
-    branches:
-    - 'master'
-    - 'release-*'
+  workflow_call:
+    inputs:
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
+  #push:
+  #  paths:
+  #  - 'src/**'
+  #  - '.github/workflows/dockerhub-publish-snapshot.yaml'
+  #  - 'Dockerfile'
+  #  branches:
+  #  - 'master'
+  #  - 'release-*'
 
 env:
   IMAGE: astarte/astarte-message-hub
