@@ -24,12 +24,13 @@ name: Publish snapshot Docker images
 
 on:
   workflow_call:
-    inputs:
     secrets:
       DOCKER_USERNAME:
         required: true
       DOCKER_PASSWORD:
         required: true
+      #GITHUB_TOKEN:
+      #  required: true
   #push:
   #  paths:
   #  - 'src/**'
@@ -51,10 +52,27 @@ jobs:
       contents: read
       attestations: write
       id-token: write
-    needs: [check, test, e2e-test]
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+
+      - name: Check image file changes
+        uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            tf:
+              - 'src/**'
+              - '.github/workflows/dockerhub-publish-snapshot.yaml'
+              - 'Dockerfile'
+
+      - name: Skip execution if no changes to image files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.changes.outputs.tf == 'true'
+        run: |
+          gh run cancel ${{ github.run_id }}
+          gh run watch ${{ github.run_id }}
 
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
