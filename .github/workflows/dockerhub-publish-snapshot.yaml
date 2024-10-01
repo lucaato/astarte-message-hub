@@ -41,7 +41,8 @@ on:
   #  - 'release-*'
 
 env:
-  IMAGE: astarte/astarte-message-hub
+#  IMAGE: astarte/astarte-message-hub
+  IMAGE: lucasecomind/test-message-hub
 
 jobs:
   push_snapshot_to_registry:
