@@ -53,6 +53,7 @@ jobs:
   publish-snapshot:
     secrets: inherit
     uses: ./.github/workflows/dockerhub-publish-snapshot.yaml
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release-')
     #needs: [check, test, e2e-test]
     needs: [check]
     permissions:
