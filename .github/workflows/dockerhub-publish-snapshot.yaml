@@ -25,15 +25,9 @@ name: Publish snapshot Docker images
 on:
   workflow_dispatch:
   workflow_call:
-    secrets:
-      DOCKER_USERNAME:
-        required: true
-      DOCKER_PASSWORD:
-        required: true
 
 env:
-  IMAGE: astarte/astarte-message-hub
-
+  IMAGE: ghcr.io/${{ github.repository_owner }}/astarte-message-hub
 jobs:
   push_snapshot_to_registry:
     name: Push Docker images to Docker Hub
@@ -69,8 +63,9 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
 
       - name: Compute tag name for snapshot images
         id: compute-tag

@@ -39,10 +39,17 @@ jobs:
   e2e-test:
     uses: ./.github/workflows/e2e-test.yaml
     needs: [dco, reuse]
+  multi-platform:
+    uses: ./.github/workflows/multi-platform.yaml
+    needs: [dco, reuse]
   publish-release:
     secrets: inherit
     uses: ./.github/workflows/dockerhub-publish-release.yaml
-    needs: [check, test, e2e-test]
+    needs:
+      - check
+      - test
+      - e2e-test
+      - multi-platform
     permissions:
       packages: write
       contents: read
