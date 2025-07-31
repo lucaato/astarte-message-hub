@@ -8,10 +8,11 @@ name: Publish Docker images
 on:
   workflow_call:
   workflow_dispatch:
-    tag:
-      description: 'The tag to checkout and release'
-      required: true
-      type: string
+    inputs:
+      tag:
+        description: 'The tag to checkout and release'
+        required: true
+        type: string
 env:
   IMAGE: ghcr.io/${{ github.repository_owner }}/astarte-message-hub
 jobs:
