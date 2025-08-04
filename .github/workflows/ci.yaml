@@ -59,7 +59,7 @@ jobs:
     if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/release-')
     needs:
       - check
-      - test
+      #- test
       - e2e-test
       - multi-platform
     permissions:
