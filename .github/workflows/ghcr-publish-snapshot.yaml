@@ -25,11 +25,7 @@ jobs:
       attestations: write
       id-token: write
     steps:
-      - name: Check out the repo current push
-        if: ${{ inputs.commit-sha == '' }}
-        uses: actions/checkout@v4
       - name: Check out the repo at the specified ref
-        if: ${{ inputs.commit-sha != '' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.commit-sha }}
