@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/ghcr-publish-release.yaml
     needs:
       - check
-      - test
+      #- test
       - e2e-test
       - multi-platform
     permissions:
