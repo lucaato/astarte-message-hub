@@ -27,11 +27,11 @@ jobs:
     strategy:
       fail-fast: true
     steps:
-      - name: Check out the repo current push
-        if: ${{ inputs.tag == '' }}
-        uses: actions/checkout@v4
+      #- name: Check out the repo current push
+      #  if: ${{ inputs.tag == '' }}
+      #  uses: actions/checkout@v4
       - name: Check out the repo at specified tag
-        if: ${{ inputs.tag != '' }}
+        #if: ${{ inputs.tag != '' }}
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.tag }}
