@@ -30,7 +30,7 @@ rust-version = { workspace = true }
 description = "A central service that runs on (Linux) devices for collecting and delivering messages from N apps using 1 MQTT connection to Astarte"
 
 [dependencies]
-astarte-device-sdk = { workspace = true, features = ["derive", "message-hub"] }
+astarte-device-sdk = { workspace = true, features = ["derive", "message-hub"], path = "/home/luca/Work/SecoMind/Public/astarte/sdks/rust/astarte-device-sdk-rust" }
 astarte-interfaces = { workspace = true }
 astarte-message-hub-proto = { workspace = true }
 async-trait = { workspace = true }
@@ -75,8 +75,8 @@ serial_test = { workspace = true }
 tempfile = { workspace = true }
 
 [workspace.dependencies]
-astarte-device-sdk = "0.10.4"
-astarte-device-sdk-mock = "0.10.4"
+astarte-device-sdk = "0.10.5"
+astarte-device-sdk-mock = "0.10.5"
 astarte-interfaces = "0.1.1"
 astarte-message-hub-proto = "0.8.4"
 async-trait = "0.1.80"
